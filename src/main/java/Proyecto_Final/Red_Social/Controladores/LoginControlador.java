@@ -17,6 +17,13 @@ public class LoginControlador {
 	@Autowired
 	private UsuarioInterfaz usuarioServicio;
 
+	
+	@GetMapping("/")
+	public String loginc(Model model) {
+		// Se agrega un nuevo objeto UsuarioDTO al modelo para el formulario de login
+		model.addAttribute("usuarioDTO", new UsuarioDto());
+		return "login";
+	}
 	/**
 	 * Gestiona la solicitud HTTP GET para /auth/login y muestra la página de inicio de sesión
 	 * @param model Modelo que se utiliza para enviar un usuarioDTO vacio a la vista.

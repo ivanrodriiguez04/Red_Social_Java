@@ -7,11 +7,13 @@ public class UsuarioDto {
 
 	//Atributos
 	private long idUsuario;
-	private String nombreUsuario="aaaaa";
-	private String emailUsuario="aaaaa";
-	private String contraseñaUsuario="aaaaa";
-	private String contraseñaUsuario2="aaaaa";
+	private String nombreUsuario;
+	private String emailUsuario;
+	private String contraseñaUsuario;
+	private String contraseñaUsuario2;
 	private long idAcceso;
+	private String token;
+
 	private Calendar expiracionToken;
 	public Boolean admin=true;
 	//Constructores
@@ -21,7 +23,7 @@ public class UsuarioDto {
 	}
 	
 	public UsuarioDto(long idUsuario, String nombreUsuario, String emailUsuario, String contraseñaUsuario,
-			String contraseñaUsuario2, long idAcceso, Calendar expiracionToken, Boolean admin) {
+			String contraseñaUsuario2, long idAcceso,String token, Calendar expiracionToken, Boolean admin) {
 		super();
 		this.idUsuario = idUsuario;
 		this.nombreUsuario = nombreUsuario;
@@ -29,6 +31,7 @@ public class UsuarioDto {
 		this.contraseñaUsuario = contraseñaUsuario;
 		this.contraseñaUsuario2 = contraseñaUsuario2;
 		this.idAcceso = idAcceso;
+		this.token=token;
 		this.expiracionToken = expiracionToken;
 		this.admin = admin;
 	}
@@ -53,6 +56,13 @@ public class UsuarioDto {
 	public void setContraseñaUsuario(String contraseñaUsuario) {
 		this.contraseñaUsuario = contraseñaUsuario;
 	}
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 	public Calendar getExpiracionToken() {
 		return expiracionToken;
 	}
@@ -67,18 +77,23 @@ public class UsuarioDto {
 	}
 
 	//Metodos
+	
+	public boolean isAdmin() {
+	    return admin != null && admin;
+	}
+
 	@Override
 	public String toString() {
 		return "UsuarioDto [idUsuario=" + idUsuario + ", nombreUsuario=" + nombreUsuario + ", emailUsuario="
 				+ emailUsuario + ", contraseñaUsuario=" + contraseñaUsuario + ", contraseñaUsuario2="
-				+ contraseñaUsuario2 + ", idAcceso=" + idAcceso + ", expiracionToken=" + expiracionToken + ", admin="
-				+ admin + "]";
+				+ contraseñaUsuario2 + ", idAcceso=" + idAcceso + ", token=" + token + ", expiracionToken="
+				+ expiracionToken + ", admin=" + admin + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(admin, contraseñaUsuario, contraseñaUsuario2, emailUsuario, expiracionToken, idAcceso,
-				idUsuario, nombreUsuario);
+				idUsuario, nombreUsuario, token);
 	}
 
 	@Override
@@ -94,10 +109,8 @@ public class UsuarioDto {
 				&& Objects.equals(contraseñaUsuario2, other.contraseñaUsuario2)
 				&& Objects.equals(emailUsuario, other.emailUsuario)
 				&& Objects.equals(expiracionToken, other.expiracionToken) && idAcceso == other.idAcceso
-				&& idUsuario == other.idUsuario && Objects.equals(nombreUsuario, other.nombreUsuario);
-	}
-	public boolean isAdmin() {
-	    return admin != null && admin;
+				&& idUsuario == other.idUsuario && Objects.equals(nombreUsuario, other.nombreUsuario)
+				&& Objects.equals(token, other.token);
 	}
 	
 }

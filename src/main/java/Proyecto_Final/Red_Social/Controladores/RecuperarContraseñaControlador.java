@@ -22,7 +22,7 @@ import Proyecto_Final.Red_Social.Servicios.UsuarioInterfaz;
 public class RecuperarContraseñaControlador {
 
 	@Autowired
-	private UsuarioInterfaz usuarioInterfaz;
+	private UsuarioInterfaz usuarioServicio;
 	
 
 	/**
@@ -33,8 +33,13 @@ public class RecuperarContraseñaControlador {
 	 */
 	@GetMapping("/iniciarRecuperacion")
 	public String mostrarVistainiciarRecuperacion(Model model) {
-		model.addAttribute("usuarioDTO", new UsuarioDto());
-		return "iniciarRecuperacion";
+		 try {
+	            model.addAttribute("usuarioDTO", new UsuarioDto());
+	            return "iniciarRecuperacion";
+	        } catch (Exception e) {
+	            model.addAttribute("error", "Error al procesar la solicitud. Por favor, inténtelo de nuevo.");
+	            return "iniciarRecuperacion";
+	        }
 	}
 
 	/**
@@ -46,17 +51,22 @@ public class RecuperarContraseñaControlador {
 	 * 		   en caso contrario, la vista de inicio de recuperación.html
 	 */
 	@PostMapping("/iniciarRecuperacion")
-	public String procesarInicioRecuperacion(@ModelAttribute UsuarioDto usuarioDto, Model model) {
+	public String procesarInicioRecuperacion(@ModelAttribute UsuarioDto usuarioDTO, Model model) {
 		
-		boolean envioConExito = usuarioInterfaz.iniciarResetPassConEmail(usuarioDto.getEmailUsuario());
-		
-		if(envioConExito) {
-	        model.addAttribute("mensajeExitoMail", "Proceso de recuperacion OK");
-	        return "login";
-		} else {
-	        model.addAttribute("mensajeErrorMail", "Error en el proceso de recuperacion.");
-		}
-		return "iniciarRecuperacion";
+		try {
+            boolean envioConExito = usuarioServicio.iniciarResetPassConEmail(usuarioDTO.getEmailUsuario());
+
+            if (envioConExito) {
+                model.addAttribute("mensajeExitoMail", "Proceso de recuperación OK");
+                return "login";
+            } else {
+                model.addAttribute("mensajeErrorMail", "Error en el proceso de recuperación.");
+            }
+            return "iniciarRecuperacion";
+        } catch (Exception e) {
+            model.addAttribute("error", "Error al procesar la solicitud. Por favor, inténtelo de nuevo.");
+            return "iniciarRecuperacion";
+        }
 	}
 	
 	/**
@@ -70,15 +80,19 @@ public class RecuperarContraseñaControlador {
 	 */
 	@GetMapping("/recuperar")
 	public String mostrarVistaRecuperar(@RequestParam(name = "token") String token, Model model) {
-		UsuarioDto usuario = usuarioInterfaz.obtenerUsuarioPorToken(token);
-		if(usuario != null) {
-			model.addAttribute("usuarioDTO", usuario);
-		} else {
-	        model.addAttribute("usuarioDTO", new UsuarioDto()); 
-	        model.addAttribute("mensajeErrorTokenValidez", "Token no válido o usuario no encontrado");
-	        return "iniciarRecuperacion";
-		}
-        return "recuperar";
+		 try {
+			 UsuarioDto usuario = usuarioServicio.obtenerUsuarioPorToken(token);
+	            if (usuario != null) {
+	                model.addAttribute("usuarioDTO", usuario);
+	            } else {
+	                model.addAttribute("mensajeErrorTokenValidez", "El enlace de recuperación no válido o usuario no encontrado");
+	                return "iniciarRecuperacion";
+	            }
+	            return "recuperar";
+	        } catch (Exception e) {
+	            model.addAttribute("error", "Error al mostrar la vista de recuperar");
+	            return "iniciarRecuperacion";
+	        }
 	}
 	
 	/**
@@ -89,27 +103,31 @@ public class RecuperarContraseñaControlador {
 	 * @return La vista de login.html si la modificación fue exitosa; de lo contrario, la vista de iniciarRecuperación.html
 	 */
 	@PostMapping("/recuperar")
-	public String procesarRecuperacionContraseña(@ModelAttribute UsuarioDto usuarioDto, Model model) {
-		
-	    UsuarioDto usuarioExistente = usuarioInterfaz.obtenerUsuarioPorToken(usuarioDto.getToken());
-	    
-	    if (usuarioExistente == null) {
-	    	model.addAttribute("mensajeErrorTokenValidez", "Token no válido");
-	        return "iniciarRecuperacion";
-	    }
-	    if (usuarioExistente.getExpiracionToken().before(Calendar.getInstance())) {
-	        model.addAttribute("mensajeErrorTokenExpirado", "El token ha expirado");
-	        return "iniciarRecuperacion";
-	    }
-	    
-		boolean modificadaPassword = usuarioInterfaz.modificarContraseñaConToken(usuarioDto);
-		
-		if(modificadaPassword) {
-			model.addAttribute("contraseñaModificadaExito", "Contraseña modificada OK");
-	        return "login";
-		} else {
-			model.addAttribute("contraseñaModificadaError", "Error al cambiar de contraseña");
-			return "iniciarRecuperacion";
-		}	
+	public String procesarRecuperacionContraseña(@ModelAttribute UsuarioDto usuarioDTO, Model model) {
+		try {
+			UsuarioDto usuarioExistente = usuarioServicio.obtenerUsuarioPorToken(usuarioDTO.getToken());
+
+            if (usuarioExistente == null) {
+                model.addAttribute("mensajeErrorTokenValidez", "El enlace de recuperación no válido");
+                return "iniciarRecuperacion";
+            }
+            if (usuarioExistente.getExpiracionToken().before(Calendar.getInstance())) {
+                model.addAttribute("mensajeErrorTokenExpirado", "El enlace de recuperación ha expirado");
+                return "iniciarRecuperacion";
+            }
+
+            boolean modificadaPassword = usuarioServicio.modificarContraseñaConToken(usuarioDTO);
+
+            if (modificadaPassword) {
+                model.addAttribute("contraseñaModificadaExito", "Contraseña modificada OK");
+                return "login";
+            } else {
+                model.addAttribute("contraseñaModificadaError", "Error al cambiar de contraseña");
+                return "iniciarRecuperacion";
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", "Error al procesar la solicitud recuperar");
+            return "iniciarRecuperacion";
+        }
 	}
 }

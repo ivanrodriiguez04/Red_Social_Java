@@ -21,7 +21,7 @@ public class LoginControlador {
 	@GetMapping("/")
 	public String loginc(Model model) {
 		// Se agrega un nuevo objeto UsuarioDTO al modelo para el formulario de login
-		model.addAttribute("usuarioDTO", new UsuarioDto());
+		model.addAttribute("usuarioDto", new UsuarioDto());
 		return "login";
 	}
 	/**
@@ -32,7 +32,7 @@ public class LoginControlador {
 	@GetMapping("/auth/login")
 	public String login(Model model) {
 		// Se agrega un nuevo objeto UsuarioDTO al modelo para el formulario de login
-		model.addAttribute("usuarioDTO", new UsuarioDto());
+		model.addAttribute("usuarioDto", new UsuarioDto());
 		return "login";
 	}
 
@@ -43,7 +43,7 @@ public class LoginControlador {
 	 */
 	@GetMapping("/auth/registrar")
 	public String registrarGet(Model model) {
-		model.addAttribute("usuarioDTO", new UsuarioDto());
+		model.addAttribute("usuarioDto", new UsuarioDto());
 		return "registro";
 	}
 

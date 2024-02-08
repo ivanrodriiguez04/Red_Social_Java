@@ -11,31 +11,33 @@ public class UsuarioDto {
 	private String emailUsuario;
 	private String contraseñaUsuario;
 	private String contraseñaUsuario2;
+	private int telefonoUsuario;
 	private long idAcceso;
 	private String token;
-
 	private Calendar expiracionToken;
 	public Boolean admin=true;
+	
 	//Constructores
 	public UsuarioDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 	public UsuarioDto(long idUsuario, String nombreUsuario, String emailUsuario, String contraseñaUsuario,
-			String contraseñaUsuario2, long idAcceso,String token, Calendar expiracionToken, Boolean admin) {
+			String contraseñaUsuario2, int telefonoUsuario, long idAcceso, String token, Calendar expiracionToken,
+			Boolean admin) 
+	{
 		super();
 		this.idUsuario = idUsuario;
 		this.nombreUsuario = nombreUsuario;
 		this.emailUsuario = emailUsuario;
 		this.contraseñaUsuario = contraseñaUsuario;
 		this.contraseñaUsuario2 = contraseñaUsuario2;
+		this.telefonoUsuario = telefonoUsuario;
 		this.idAcceso = idAcceso;
-		this.token=token;
+		this.token = token;
 		this.expiracionToken = expiracionToken;
 		this.admin = admin;
 	}
-
 
 	//Getters & Setters
 	public String getNombreUsuario() {
@@ -59,7 +61,12 @@ public class UsuarioDto {
 	public String getToken() {
 		return token;
 	}
-
+	public int getTelefonoUsuario() {
+		return telefonoUsuario;
+	}
+	public void setTelefonoUsuario(int telefonoUsuario) {
+		this.telefonoUsuario = telefonoUsuario;
+	}
 	public void setToken(String token) {
 		this.token = token;
 	}
@@ -81,21 +88,11 @@ public class UsuarioDto {
 	public boolean isAdmin() {
 	    return admin != null && admin;
 	}
-
-	@Override
-	public String toString() {
-		return "UsuarioDto [idUsuario=" + idUsuario + ", nombreUsuario=" + nombreUsuario + ", emailUsuario="
-				+ emailUsuario + ", contraseñaUsuario=" + contraseñaUsuario + ", contraseñaUsuario2="
-				+ contraseñaUsuario2 + ", idAcceso=" + idAcceso + ", token=" + token + ", expiracionToken="
-				+ expiracionToken + ", admin=" + admin + "]";
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(admin, contraseñaUsuario, contraseñaUsuario2, emailUsuario, expiracionToken, idAcceso,
-				idUsuario, nombreUsuario, token);
+				idUsuario, nombreUsuario, telefonoUsuario, token);
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -110,7 +107,13 @@ public class UsuarioDto {
 				&& Objects.equals(emailUsuario, other.emailUsuario)
 				&& Objects.equals(expiracionToken, other.expiracionToken) && idAcceso == other.idAcceso
 				&& idUsuario == other.idUsuario && Objects.equals(nombreUsuario, other.nombreUsuario)
-				&& Objects.equals(token, other.token);
+				&& telefonoUsuario == other.telefonoUsuario && Objects.equals(token, other.token);
 	}
-	
+	@Override
+	public String toString() {
+		return "UsuarioDto [idUsuario=" + idUsuario + ", nombreUsuario=" + nombreUsuario + ", emailUsuario="
+				+ emailUsuario + ", contraseñaUsuario=" + contraseñaUsuario + ", contraseñaUsuario2="
+				+ contraseñaUsuario2 + ", telefonoUsuario=" + telefonoUsuario + ", idAcceso=" + idAcceso + ", token="
+				+ token + ", expiracionToken=" + expiracionToken + ", admin=" + admin + "]";
+	}
 }

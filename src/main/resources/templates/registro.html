@@ -17,27 +17,47 @@
         <div class="menu">
             <div>
                 <ul class="nav-links">
-                    <li><a th:href="@{/auth/login}">Volver</a></li>
+                    <li><a th:href="@{/privada/home}">Volver</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-<div class="contenedor form-registro">
-		<p class="titulo">Nuevo Usuario</p>
-		<form class="form" th:action="@{/auth/registrar}" enctype="multipart/form-data" method="post" th:object="${usuarioDTO}">
-			<input type="text" id="nombreUsuario" name="nombreUsuario" class="input" placeholder="Nombre"
-				required th:value="*{nombreUsuario}">
-			<input type="email" id="emailUsuario" name="emailUsuario" class="input" placeholder="Email"
-				required th:value="*{emailUsuario}">
-			<input type="password" id="contraseñaUsuario" name="contraseñaUsuario" class="input" placeholder="Contraseña"
-				required th:value="*{contraseñaUsuario}" oninput="revisarContraseña()">
-			<input type="password" id="confirmarContraseñaUsuario" name="confirmarContraseñaUsuario" class="input"
-				placeholder="Confirmar Contraseña" required oninput="revisarContraseña()">
-			<button type="submit" id="btnRegistro" class="form-btn">Registrarse</button>
-			<div class="mensajeContrasenya" id="mensajeContrasenya"></div>
-		</form>
-	</div>
+    <div class="wrapper">
+        <div class="logo">
+            <img src="https://www.freepnglogos.com/uploads/twitter-logo-png/twitter-bird-symbols-png-logo-0.png" alt="">
+        </div>
+        <div class="text-center mt-4 name">
+           Registro
+        </div>
+        <form class="p-3 mt-3"th:action="@{/auth/registrar}" enctype="multipart/form-data" method="post" th:object="${UsuarioDto}">
+            <div class="form-field d-flex align-items-center">
+				<span class="far fa-user"></span>
+                <input id="login-username" type="email" class="input" name="emailUsuario" placeholder="Introduce tu email" required>
+            </div>
+            
+            <div class="form-field d-flex align-items-center">
+				<span class="far fa-user"></span>
+                <input id="login-username" type="text" class="input" name="nombreUsuario" placeholder="Introduce tu nombre de usuario" required>
+            </div>
+            <div class="form-field d-flex align-items-center">
+				<span class="far fa-user"></span>
+                <input id="login-username" type="number" class="input" name="telefonoUsuario" placeholder="Introduce tu numero de telefono" required>
+            </div>
+            
+            <div class="form-field d-flex align-items-center">
+				<span class="far fa-key"></span>
+				<input id="login-password" type="password" class="input" name="contraseñaUsuario" placeholder="Introduce tu contreseña" required>
+            </div>
+            
+            <div class="form-field d-flex align-items-center">
+				<span class="far fa-key"></span>
+				<input id="login-password" type="password" class="input" name="contraseñaUsuario2" placeholder="Confirmar contraseña" required>
+            </div>
+            
+            <button type="submit" id="btnRegistro" class="btn mt-3">Registrarse</button>
+        </form>
+    </div>
     <script th:if="${not #strings.isEmpty(mensajeErrorMail)}">
 	    mostrarNotificacion("¡Error!", "El email ya se encuentra registrado en el sistema", 'error');
 	</script>

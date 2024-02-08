@@ -15,6 +15,7 @@ public class UsuarioToDtoImplementacion implements UsuarioToDtoInterfaz {
 			UsuarioDto dto = new UsuarioDto();
 			dto.setNombreUsuario(u.getNombreUsuario());
 			dto.setEmailUsuario(u.getEmailUsuario());
+			dto.setTelefonoUsuario(u.getTelefonoUsuario());
 			dto.setContraseñaUsuario(u.getContraseñaUsuario());
 			dto.setToken(u.getToken());
 			dto.setExpiracionToken(u.getExpiracionToken());

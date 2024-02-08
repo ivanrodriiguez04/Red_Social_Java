@@ -16,28 +16,37 @@
 
 <body>
 	<nav>
-		<div class="menu">
-			<div class="logo"><a>Biblioteca</a></div>
-			<ul class="nav-links">
-				<li><a th:href="@{/}">Volver</a></li>
-			</ul>
-		</div>
-	</nav>
-	<div class="contenedor form-login">
-		<p class="titulo">Bienvenido</p>
-		<form class="form" id="loginform" method="POST" th:action="@{/auth/login-post}" role="form">
-			<input id="login-username" type="email" class="input" name="username" placeholder="email" required>
-			<input id="login-password" type="password" class="input" name="password" placeholder="password" required>
-			<button type="submit" class="col-12 form-btn">Acceder</button>
-			
-		</form>
-		<form class="mb-3" method="GET" th:action="@{/auth/registrar}" >
-			<button type="submit" class="form-btn">Registrarse</button>
-		</form>
-		<form th:action="@{/auth/iniciarRecuperacion}" th:method="get">
-    		<button type="submit" class="form-btn negro">Recuperar contraseña</button>
-		</form>
-	</div>
+        <div class="menu">
+            <div>
+                <ul class="nav-links">
+                    <li><a th:href="@{/privada/home}">Volver</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+	<div class="wrapper">
+        <div class="logo">
+            <img src="https://www.freepnglogos.com/uploads/twitter-logo-png/twitter-bird-symbols-png-logo-0.png" alt="">
+        </div>
+        <div class="text-center mt-4 name">
+            Inicio de sesion
+        </div>
+        <form class="p-3 mt-3" method="POST" th:action="@{/auth/login-post}" role="form">
+            <div class="form-field d-flex align-items-center">
+				<span class="far fa-user"></span>
+				<input id="login-username" type="email" class="input" name="username" placeholder="email" required>
+            </div>
+            <div class="form-field d-flex align-items-center">
+				<span class="far fa-key"></span>
+				<input id="login-password" type="password" class="input" name="password" placeholder="password" required>
+            </div>
+            <button class="btn mt-3" type="submit">Acceder</button>
+        </form>
+        <div class="text-center fs-6">
+            <a th:href="@{/auth/iniciarRecuperacion}" th:method="get">Recuperar contraseña</a> or <a th:href="@{/auth/registrar}" method="GET">Registrarse</a>
+        </div>
+    </div>
 	<script th:if="${not #strings.isEmpty(mensajeRegistroExitoso)}">
 	    mostrarNotificacion("¡Registro exitoso!", "Ahora puede iniciar sesión", 'success');
 	</script>

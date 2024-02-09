@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import Proyecto_Final.Red_Social.Daos.Usuario;
-import Proyecto_Final.Red_Social.Dtos.UsuarioDto;
+import Proyecto_Final.Red_Social.Dtos.UsuarioDTO;
 @Service
 public class UsuarioToDtoImplementacion implements UsuarioToDtoInterfaz {
 
 	@Override
-	public UsuarioDto usuarioToDto(Usuario u) {
+	public UsuarioDTO usuarioToDto(Usuario u) {
 		try {
-			UsuarioDto dto = new UsuarioDto();
+			UsuarioDTO dto = new UsuarioDTO();
 			dto.setNombreUsuario(u.getNombreUsuario());
 			dto.setEmailUsuario(u.getEmailUsuario());
 			dto.setTelefonoUsuario(u.getTelefonoUsuario());
@@ -30,7 +30,7 @@ public class UsuarioToDtoImplementacion implements UsuarioToDtoInterfaz {
 	}
 
 	@Override
-	public List<UsuarioDto> listaUsuarioToDto(List<Usuario> listaUsuario) {
+	public List<UsuarioDTO> listaUsuarioToDto(List<Usuario> listaUsuario) {
 		// TODO Auto-generated method stub
 		return null;
 	}

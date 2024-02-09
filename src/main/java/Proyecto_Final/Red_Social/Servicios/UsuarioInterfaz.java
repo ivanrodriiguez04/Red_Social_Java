@@ -1,7 +1,7 @@
 package Proyecto_Final.Red_Social.Servicios;
 
 import Proyecto_Final.Red_Social.Daos.Usuario;
-import Proyecto_Final.Red_Social.Dtos.UsuarioDto;
+import Proyecto_Final.Red_Social.Dtos.UsuarioDTO;
 
 public interface UsuarioInterfaz {
 	
@@ -10,7 +10,7 @@ public interface UsuarioInterfaz {
 	 * @param userDTO El usuario a registrar
 	 * @return El usuario registrado
 	 */
-	public UsuarioDto registrar(UsuarioDto userDTO);
+	public UsuarioDTO registrar(UsuarioDTO userDTO);
 	
 	/**
 	 * Busca a un usuario por su dirección de email registrada
@@ -31,14 +31,14 @@ public interface UsuarioInterfaz {
 	 * @param usuario El usuario al que se le establecera la nueva contraseña
 	 * @return true si el proceso se ha realizado correctamente, false en caso contrario
 	 */
-	public boolean modificarContraseñaConToken(UsuarioDto usuario);
+	public boolean modificarContraseñaConToken(UsuarioDTO usuario);
 	
 	/**
 	 * Busca un usuario por su token de recuperación.
 	 * @param token que identifica al usuario recibió un correo con la url y dicho token
 	 * @return el usuario buscado
 	 */
-	public UsuarioDto obtenerUsuarioPorToken(String token);
+	public UsuarioDTO obtenerUsuarioPorToken(String token);
 
 
 }

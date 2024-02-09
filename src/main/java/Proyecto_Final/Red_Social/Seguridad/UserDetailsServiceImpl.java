@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import Proyecto_Final.Red_Social.Repositorios.UsuarioRepositorio;
+import Proyecto_Final.Red_Social.Repositorios.usuarioRepositorio;
 import Proyecto_Final.Red_Social.Daos.Usuario;
 
 /**
@@ -21,7 +21,7 @@ import Proyecto_Final.Red_Social.Daos.Usuario;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
-	private UsuarioRepositorio usuarioRepository;
+	private usuarioRepositorio usuarioRepository;
 	
 	/**
 	 * Se debe sobrescribir este método de la interface {@link UserDetailsService}

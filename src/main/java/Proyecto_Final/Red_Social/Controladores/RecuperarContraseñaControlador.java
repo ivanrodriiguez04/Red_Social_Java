@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import Proyecto_Final.Red_Social.Dtos.UsuarioDto;
+import Proyecto_Final.Red_Social.Dtos.UsuarioDTO;
 import Proyecto_Final.Red_Social.Servicios.UsuarioInterfaz;
 
 /**
@@ -20,6 +20,7 @@ import Proyecto_Final.Red_Social.Servicios.UsuarioInterfaz;
 @Controller
 @RequestMapping("/auth")
 public class RecuperarContraseñaControlador {
+
 
 	@Autowired
 	private UsuarioInterfaz usuarioServicio;
@@ -34,7 +35,7 @@ public class RecuperarContraseñaControlador {
 	@GetMapping("/iniciarRecuperacion")
 	public String mostrarVistainiciarRecuperacion(Model model) {
 		 try {
-	            model.addAttribute("usuarioDTO", new UsuarioDto());
+	            model.addAttribute("usuarioDTO", new UsuarioDTO());
 	            return "iniciarRecuperacion";
 	        } catch (Exception e) {
 	            model.addAttribute("error", "Error al procesar la solicitud. Por favor, inténtelo de nuevo.");
@@ -51,7 +52,7 @@ public class RecuperarContraseñaControlador {
 	 * 		   en caso contrario, la vista de inicio de recuperación.html
 	 */
 	@PostMapping("/iniciarRecuperacion")
-	public String procesarInicioRecuperacion(@ModelAttribute UsuarioDto usuarioDTO, Model model) {
+	public String procesarInicioRecuperacion(@ModelAttribute UsuarioDTO usuarioDTO, Model model) {
 		
 		try {
             boolean envioConExito = usuarioServicio.iniciarResetPassConEmail(usuarioDTO.getEmailUsuario());
@@ -81,7 +82,7 @@ public class RecuperarContraseñaControlador {
 	@GetMapping("/recuperar")
 	public String mostrarVistaRecuperar(@RequestParam(name = "token") String token, Model model) {
 		 try {
-			 UsuarioDto usuario = usuarioServicio.obtenerUsuarioPorToken(token);
+	            UsuarioDTO usuario = usuarioServicio.obtenerUsuarioPorToken(token);
 	            if (usuario != null) {
 	                model.addAttribute("usuarioDTO", usuario);
 	            } else {
@@ -103,9 +104,9 @@ public class RecuperarContraseñaControlador {
 	 * @return La vista de login.html si la modificación fue exitosa; de lo contrario, la vista de iniciarRecuperación.html
 	 */
 	@PostMapping("/recuperar")
-	public String procesarRecuperacionContraseña(@ModelAttribute UsuarioDto usuarioDTO, Model model) {
+	public String procesarRecuperacionContraseña(@ModelAttribute UsuarioDTO usuarioDTO, Model model) {
 		try {
-			UsuarioDto usuarioExistente = usuarioServicio.obtenerUsuarioPorToken(usuarioDTO.getToken());
+            UsuarioDTO usuarioExistente = usuarioServicio.obtenerUsuarioPorToken(usuarioDTO.getToken());
 
             if (usuarioExistente == null) {
                 model.addAttribute("mensajeErrorTokenValidez", "El enlace de recuperación no válido");

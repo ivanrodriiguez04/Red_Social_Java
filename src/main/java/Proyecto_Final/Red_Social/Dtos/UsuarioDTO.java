@@ -3,7 +3,7 @@ package Proyecto_Final.Red_Social.Dtos;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class UsuarioDto {
+public class UsuarioDTO {
 
 	//Atributos
 	private long idUsuario;
@@ -18,11 +18,11 @@ public class UsuarioDto {
 	public Boolean admin=true;
 	
 	//Constructores
-	public UsuarioDto() {
+	public UsuarioDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public UsuarioDto(long idUsuario, String nombreUsuario, String emailUsuario, String contraseñaUsuario,
+	public UsuarioDTO(long idUsuario, String nombreUsuario, String emailUsuario, String contraseñaUsuario,
 			String contraseñaUsuario2, int telefonoUsuario, long idAcceso, String token, Calendar expiracionToken,
 			Boolean admin) 
 	{
@@ -40,6 +40,15 @@ public class UsuarioDto {
 	}
 
 	//Getters & Setters
+	public boolean isAdmin() {
+	    return admin != null && admin;
+	}
+	public long getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
 	public String getNombreUsuario() {
 		return nombreUsuario;
 	}
@@ -58,14 +67,26 @@ public class UsuarioDto {
 	public void setContraseñaUsuario(String contraseñaUsuario) {
 		this.contraseñaUsuario = contraseñaUsuario;
 	}
-	public String getToken() {
-		return token;
+	public String getContraseñaUsuario2() {
+		return contraseñaUsuario2;
+	}
+	public void setContraseñaUsuario2(String contraseñaUsuario2) {
+		this.contraseñaUsuario2 = contraseñaUsuario2;
 	}
 	public int getTelefonoUsuario() {
 		return telefonoUsuario;
 	}
 	public void setTelefonoUsuario(int telefonoUsuario) {
 		this.telefonoUsuario = telefonoUsuario;
+	}
+	public long getIdAcceso() {
+		return idAcceso;
+	}
+	public void setIdAcceso(long idAcceso) {
+		this.idAcceso = idAcceso;
+	}
+	public String getToken() {
+		return token;
 	}
 	public void setToken(String token) {
 		this.token = token;
@@ -82,12 +103,7 @@ public class UsuarioDto {
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
 	}
-
 	//Metodos
-	
-	public boolean isAdmin() {
-	    return admin != null && admin;
-	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(admin, contraseñaUsuario, contraseñaUsuario2, emailUsuario, expiracionToken, idAcceso,
@@ -101,7 +117,7 @@ public class UsuarioDto {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UsuarioDto other = (UsuarioDto) obj;
+		UsuarioDTO other = (UsuarioDTO) obj;
 		return Objects.equals(admin, other.admin) && Objects.equals(contraseñaUsuario, other.contraseñaUsuario)
 				&& Objects.equals(contraseñaUsuario2, other.contraseñaUsuario2)
 				&& Objects.equals(emailUsuario, other.emailUsuario)

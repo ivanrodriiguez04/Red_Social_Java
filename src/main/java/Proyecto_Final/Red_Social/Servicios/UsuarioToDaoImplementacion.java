@@ -3,12 +3,12 @@ package Proyecto_Final.Red_Social.Servicios;
 import org.springframework.stereotype.Service;
 
 import Proyecto_Final.Red_Social.Daos.Usuario;
-import Proyecto_Final.Red_Social.Dtos.UsuarioDto;
+import Proyecto_Final.Red_Social.Dtos.UsuarioDTO;
 @Service
 public class UsuarioToDaoImplementacion implements UsuarioToDaoInterfaz {
 
 	@Override
-	public Usuario usuarioToDao(UsuarioDto usuarioDto) {
+	public Usuario usuarioToDao(UsuarioDTO usuarioDto) {
 		Usuario usuarioDao = new Usuario();
 
 		try {

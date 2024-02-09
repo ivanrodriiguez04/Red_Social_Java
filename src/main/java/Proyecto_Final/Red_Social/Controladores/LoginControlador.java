@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import Proyecto_Final.Red_Social.Servicios.UsuarioInterfaz;
 import Proyecto_Final.Red_Social.Daos.*;
-import Proyecto_Final.Red_Social.Dtos.UsuarioDto;
+import Proyecto_Final.Red_Social.Dtos.UsuarioDTO;
 
 @Controller
 public class LoginControlador {
@@ -21,7 +21,7 @@ public class LoginControlador {
 	@GetMapping("/")
 	public String loginc(Model model) {
 		// Se agrega un nuevo objeto UsuarioDTO al modelo para el formulario de login
-		model.addAttribute("usuarioDto", new UsuarioDto());
+		model.addAttribute("usuarioDto", new UsuarioDTO());
 		return "login";
 	}
 	/**
@@ -32,7 +32,7 @@ public class LoginControlador {
 	@GetMapping("/auth/login")
 	public String login(Model model) {
 		// Se agrega un nuevo objeto UsuarioDTO al modelo para el formulario de login
-		model.addAttribute("usuarioDto", new UsuarioDto());
+		model.addAttribute("usuarioDto", new UsuarioDTO());
 		return "login";
 	}
 
@@ -43,7 +43,7 @@ public class LoginControlador {
 	 */
 	@GetMapping("/auth/registrar")
 	public String registrarGet(Model model) {
-		model.addAttribute("usuarioDto", new UsuarioDto());
+		model.addAttribute("usuarioDto", new UsuarioDTO());
 		return "registro";
 	}
 
@@ -55,9 +55,9 @@ public class LoginControlador {
 	 * 		   de lo contrario, la vista de registro de usuario (registro.html).
 	 */
 	@PostMapping("/auth/registrar")
-	public String registrarPost(@ModelAttribute UsuarioDto usuarioDto, Model model) {
+	public String registrarPost(@ModelAttribute UsuarioDTO usuarioDTO, Model model) {
 
-		UsuarioDto nuevoUsuario = usuarioServicio.registrar(usuarioDto);
+		UsuarioDTO nuevoUsuario = usuarioServicio.registrar(usuarioDTO);
 		
 		if (nuevoUsuario != null && nuevoUsuario.getEmailUsuario() != null) {
 			// Si el usuario y el DNI no son null es que el registro se completo correctamente
@@ -65,7 +65,7 @@ public class LoginControlador {
 			return "login";
 		} else {
 			// Se verifica si el DNI ya existe para mostrar error personalizado en la vista
-			if (usuarioDto.getEmailUsuario() == null) {
+			if (usuarioDTO.getEmailUsuario() == null) {
 				model.addAttribute("mensajeErrorMail", "Ya existe un usuario con ese email");
 				return "registro";
 			}

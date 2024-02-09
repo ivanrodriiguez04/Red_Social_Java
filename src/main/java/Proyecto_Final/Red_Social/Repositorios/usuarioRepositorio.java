@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import Proyecto_Final.Red_Social.Daos.Usuario;
 
-public interface UsuarioRepositorio extends JpaRepository<Usuario,Long> {
+public interface usuarioRepositorio extends JpaRepository<Usuario,Long> {
 
 	/**
 	 * Busca al primer usuario que tiene la dirección de correo electrónico especificada

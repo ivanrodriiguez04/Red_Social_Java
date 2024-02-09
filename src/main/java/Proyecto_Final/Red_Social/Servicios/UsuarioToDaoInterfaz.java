@@ -1,7 +1,7 @@
 package Proyecto_Final.Red_Social.Servicios;
 
 import Proyecto_Final.Red_Social.Daos.Usuario;
-import Proyecto_Final.Red_Social.Dtos.UsuarioDto;
+import Proyecto_Final.Red_Social.Dtos.UsuarioDTO;
 
 public interface UsuarioToDaoInterfaz {
 	/**
@@ -9,5 +9,5 @@ public interface UsuarioToDaoInterfaz {
 	 * @param ausuarioDTO el objeto usuarioDTO
 	 * @return Usuario convertido a DAO
 	 */
-	public Usuario usuarioToDao(UsuarioDto usuarioDto);
+	public Usuario usuarioToDao(UsuarioDTO usuarioDto);
 }

@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import Proyecto_Final.Red_Social.Daos.Usuario;
-import Proyecto_Final.Red_Social.Dtos.UsuarioDto;
-import Proyecto_Final.Red_Social.Repositorios.UsuarioRepositorio;
+import Proyecto_Final.Red_Social.Dtos.UsuarioDTO;
+import Proyecto_Final.Red_Social.Repositorios.usuarioRepositorio;
 import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
 public class UsuarioImplementacion implements UsuarioInterfaz {
 	@Autowired
-	private UsuarioRepositorio repositorio;
+	private usuarioRepositorio repositorio;
 
 	@Autowired
 	private UsuarioToDaoInterfaz toDao;
@@ -31,7 +31,7 @@ public class UsuarioImplementacion implements UsuarioInterfaz {
 	private EmailInterfaz emailInterfaz;
 	
 	
-	public UsuarioDto registrar(UsuarioDto userDto) {
+	public UsuarioDTO registrar(UsuarioDTO userDto) {
 		try {
 			// Comprueba si ya existe un usuario con el email que quiere registrar
 			Usuario usuarioDaoByEmail = repositorio.findFirstByEmailUsuario(userDto.getEmailUsuario());
@@ -97,7 +97,7 @@ public class UsuarioImplementacion implements UsuarioInterfaz {
 	}
 
 	@Override
-	public boolean modificarContraseñaConToken(UsuarioDto usuario) {
+	public boolean modificarContraseñaConToken(UsuarioDTO usuario) {
 		Usuario usuarioExistente = repositorio.findByToken(usuario.getToken());
 		
 		if(usuarioExistente != null) {
@@ -113,11 +113,11 @@ public class UsuarioImplementacion implements UsuarioInterfaz {
 	}
 
 	@Override
-	public UsuarioDto obtenerUsuarioPorToken(String token) {
+	public UsuarioDTO obtenerUsuarioPorToken(String token) {
 		Usuario usuarioExistente = repositorio.findByToken(token);
 		
 		if(usuarioExistente != null) {
-			UsuarioDto usuario = toDto.usuarioToDto(usuarioExistente);
+			UsuarioDTO usuario = toDto.usuarioToDto(usuarioExistente);
 			return usuario;
 		} else {
 			System.out.println("No existe el usuario con el token "+token);

@@ -30,7 +30,7 @@
         <div class="text-center mt-4 name">
            Registro
         </div>
-        <form class="p-3 mt-3"th:action="@{/auth/registrar}" enctype="multipart/form-data" method="post" th:object="${UsuarioDto}">
+        <form class="p-3 mt-3"th:action="@{/auth/registrar}" enctype="multipart/form-data" method="post" th:object="${UsuarioDTO}">
             <div class="form-field d-flex align-items-center">
 				<span class="far fa-user"></span>
                 <input id="login-username" type="email" class="input" name="emailUsuario" placeholder="Introduce tu email" required>

@@ -27,34 +27,56 @@
 		</div>
 	</nav>
 
-	<h3 th:if="${isAdmin}" class="text-dark text-center mt-5">Administracion</h3>
-	
-	   <h4 th:if="${isAdmin}" style="text-align: center; margin-top: 50px;">Lista de Usuarios</h4>
+	<div class="container py-4 mt-5">
 
-    <table th:if="${isAdmin}" style="text-align: center;">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Cambiar Rol</th> 
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Itera sobre la lista de usuarios y muestra la información -->
-            <tr th:each="usuario : ${Usuario}">
-                <td th:text="${Usuario.nombreUsuario}"></td>
-			<!-- botón de cambio de rol -->
-				<td>
-					<form th:if="${isAdmin}" method="post" th:action="@{/privada/administracion/cambiarRol}">
-			            <input type="hidden" name="emailUsuario" th:value="${Usuario.emailUsuario}" />
-			            <button type="submit" th:text="${Usuario.isAdmin() ? 'Quitar Rol' : 'Asignar Rol'}"></button>
-			        </form>        	 
-				</td>
-            </tr>
-            
-        </tbody>
-    </table>
+		<div class="card bg-transparent">
+			<div class="card-header">
+				<h3>Listado usuarios</h3>
+			</div>
+			<div class="card-body">
+				<table class="table table-striped table-bordered" th:if="${not #lists.isEmpty(usuarios)}">
+					<thead class="thead-inverse">
+						<tr>
+							<th class="table-dark">Nombre</th>
+							<th class="table-dark">Email</th>
+							<th class="table-dark">Confirmada</th>
+							<th class="table-dark">Editar</th>
+							<th class="table-dark">Eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="usuario : ${usuarios}">
+							<td th:text="${usuario. nombreUsuario}"></td>
+							<td th:text="${usuario.emailUsuario}"></td>
+							<td>
+							    <span th:if="${usuario.cuentaConfirmada}">
+							        &#10004; <!-- Símbolo de verificación (tick) en verde -->
+							    </span>
+							    <span th:unless="${usuario.cuentaConfirmada}">
+							        ❌ <!-- Símbolo de X roja -->
+							    </span>
+							</td>
+							<!-- botón de EDITAR, dentro está el cambio de rol -->
+							<td sec:authorize="hasAnyRole('ROLE_3', 'ROLE_4')">
+							    <a class="btn btn-primary" th:attr="data-id=${usuario.id}" onclick="confirmarEdicion(event)" th:text="'Editar'"></a>
+							</td>
+							<!-- botón de ELIMINAR -->
+							<td sec:authorize="hasAnyRole('ROLE_3', 'ROLE_4')">
+								<a class="btn btn-danger" th:attr="data-id=${usuario.id}" th:text="'eliminar'"
+									onclick="confirmarEliminar(event)"></a>
+							</td>
 
-	
-	<h3 th:unless="${isAdmin}" class="text-dark text-center mt-5">No eres administrador</h3>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<script th:if="${not #strings.isEmpty(noSePuedeCambiarRol)}">
+		mostrarNotificacion("¡Error!", "No se puede cambiar el rol del superadmin.", 'error');
+	</script>
+	<script th:if="${not #strings.isEmpty(noSePuedeEliminar)}">
+		mostrarNotificacion("¡Error!", "No se puede eliminar a un usuario con permisos de administrador", 'error');
+	</script>
 </body>
 </html>

@@ -12,7 +12,8 @@ public class UsuarioToDaoImplementacion implements UsuarioToDaoInterfaz {
 		Usuario usuarioDao = new Usuario();
 
 		try {
-			usuarioDao.setNombreUsuario(usuarioDto.getNombreUsuario());
+			usuarioDao.setNombreCompletoUsuario(usuarioDto.getNombreCompletoUsuario());
+			usuarioDao.setNombreCuentaUsuario(usuarioDto.getNombreCuentaUsuario());
 			usuarioDao.setEmailUsuario(usuarioDto.getEmailUsuario());
 			usuarioDao.setTelefonoUsuario(usuarioDto.getTelefonoUsuario());
 			usuarioDao.setContraseñaUsuario(usuarioDto.getContraseñaUsuario());

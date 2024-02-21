@@ -1,4 +1,4 @@
-package Proyecto_Final.Red_Social.Dtos;
+/*package Proyecto_Final.Red_Social.Dtos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,3 +78,4 @@ public class ComentariosDTO
 	}
 	
 }
+*/

@@ -1,4 +1,4 @@
-package Proyecto_Final.Red_Social.Servicios;
+/*package Proyecto_Final.Red_Social.Servicios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,4 +38,4 @@ try {
 		return null;
 	}
 
-}
+}*/

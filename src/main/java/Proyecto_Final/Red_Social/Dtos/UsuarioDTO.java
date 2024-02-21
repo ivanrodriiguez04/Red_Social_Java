@@ -7,7 +7,8 @@ public class UsuarioDTO {
 
 	//Atributos
 	private long idUsuario;
-	private String nombreUsuario;
+	private String nombreCompletoUsuario;
+	private String nombreCuentaUsuario;
 	private String emailUsuario;
 	private String contraseñaUsuario;
 	private String contraseñaUsuario2;
@@ -15,20 +16,15 @@ public class UsuarioDTO {
 	private long idAcceso;
 	private String token;
 	private Calendar expiracionToken;
-	public Boolean admin=true;
-	
+	public Boolean admin=true;	
 	//Constructores
-	public UsuarioDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public UsuarioDTO(long idUsuario, String nombreUsuario, String emailUsuario, String contraseñaUsuario,
-			String contraseñaUsuario2, int telefonoUsuario, long idAcceso, String token, Calendar expiracionToken,
-			Boolean admin) 
-	{
+	public UsuarioDTO(long idUsuario, String nombreCompletoUsuario, String nombreCuentaUsuario,
+			String emailUsuario, String contraseñaUsuario, String contraseñaUsuario2, int telefonoUsuario,
+			long idAcceso, String token, Calendar expiracionToken, Boolean admin) {
 		super();
 		this.idUsuario = idUsuario;
-		this.nombreUsuario = nombreUsuario;
+		this.nombreCompletoUsuario = nombreCompletoUsuario;
+		this.nombreCuentaUsuario = nombreCuentaUsuario;
 		this.emailUsuario = emailUsuario;
 		this.contraseñaUsuario = contraseñaUsuario;
 		this.contraseñaUsuario2 = contraseñaUsuario2;
@@ -38,22 +34,28 @@ public class UsuarioDTO {
 		this.expiracionToken = expiracionToken;
 		this.admin = admin;
 	}
-
-	//Getters & Setters
-	public boolean isAdmin() {
-	    return admin != null && admin;
+	public UsuarioDTO() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
+	//Getters & Setters
 	public long getIdUsuario() {
 		return idUsuario;
 	}
 	public void setIdUsuario(long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
-	public String getNombreUsuario() {
-		return nombreUsuario;
+	public String getNombreCompletoUsuario() {
+		return nombreCompletoUsuario;
 	}
-	public void setNombreUsuario(String nombreUsuario) {
-		this.nombreUsuario = nombreUsuario;
+	public void setNombreCompletoUsuario(String nombreCompletoUsuario) {
+		this.nombreCompletoUsuario = nombreCompletoUsuario;
+	}
+	public String getNombreCuentaUsuario() {
+		return nombreCuentaUsuario;
+	}
+	public void setNombreCuentaUsuario(String nombreCuentaUsuario) {
+		this.nombreCuentaUsuario = nombreCuentaUsuario;
 	}
 	public String getEmailUsuario() {
 		return emailUsuario;
@@ -106,8 +108,8 @@ public class UsuarioDTO {
 	//Metodos
 	@Override
 	public int hashCode() {
-		return Objects.hash(admin, contraseñaUsuario, contraseñaUsuario2, emailUsuario, expiracionToken, idAcceso,
-				idUsuario, nombreUsuario, telefonoUsuario, token);
+		return Objects.hash(admin, contraseñaUsuario, contraseñaUsuario2, emailUsuario,
+				expiracionToken, idAcceso, idUsuario, nombreCuentaUsuario, nombreCompletoUsuario, telefonoUsuario, token);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -118,18 +120,24 @@ public class UsuarioDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		UsuarioDTO other = (UsuarioDTO) obj;
-		return Objects.equals(admin, other.admin) && Objects.equals(contraseñaUsuario, other.contraseñaUsuario)
+		return Objects.equals(admin, other.admin)
+				&& Objects.equals(contraseñaUsuario, other.contraseñaUsuario)
 				&& Objects.equals(contraseñaUsuario2, other.contraseñaUsuario2)
 				&& Objects.equals(emailUsuario, other.emailUsuario)
-				&& Objects.equals(expiracionToken, other.expiracionToken) && idAcceso == other.idAcceso
-				&& idUsuario == other.idUsuario && Objects.equals(nombreUsuario, other.nombreUsuario)
-				&& telefonoUsuario == other.telefonoUsuario && Objects.equals(token, other.token);
+				&& Objects.equals(expiracionToken, other.expiracionToken) 
+				&& idAcceso == other.idAcceso
+				&& idUsuario == other.idUsuario 
+				&& Objects.equals(nombreCuentaUsuario, other.nombreCuentaUsuario)
+				&& Objects.equals(nombreCompletoUsuario, other.nombreCompletoUsuario) 
+				&& telefonoUsuario == other.telefonoUsuario
+				&& Objects.equals(token, other.token);
 	}
 	@Override
 	public String toString() {
-		return "UsuarioDto [idUsuario=" + idUsuario + ", nombreUsuario=" + nombreUsuario + ", emailUsuario="
-				+ emailUsuario + ", contraseñaUsuario=" + contraseñaUsuario + ", contraseñaUsuario2="
-				+ contraseñaUsuario2 + ", telefonoUsuario=" + telefonoUsuario + ", idAcceso=" + idAcceso + ", token="
-				+ token + ", expiracionToken=" + expiracionToken + ", admin=" + admin + "]";
+		return "UsuarioDTO [idUsuario=" + idUsuario + ", nombreCompletoUsuario=" + nombreCompletoUsuario + ", nombreCuentaUsuario=" + nombreCuentaUsuario + ", emailUsuario=" + emailUsuario
+				+ ", contraseñaUsuario=" + contraseñaUsuario + ", contraseñaUsuario2=" + contraseñaUsuario2
+				+ ", telefonoUsuario=" + telefonoUsuario + ", idAcceso=" + idAcceso + ", token=" + token
+				+ ", expiracionToken=" + expiracionToken + ", admin=" + admin + "]";
 	}
+	
 }

@@ -1,4 +1,4 @@
-package Proyecto_Final.Red_Social.Servicios;
+/*package Proyecto_Final.Red_Social.Servicios;
 
 import Proyecto_Final.Red_Social.Daos.Comentarios;
 import Proyecto_Final.Red_Social.Dtos.ComentariosDTO;
@@ -9,5 +9,6 @@ public interface ComentarioToDaoInterfaz {
 	 * @param ausuarioDTO el objeto usuarioDTO
 	 * @return Usuario convertido a DAO
 	 */
-	public Comentarios comentarioToDao(ComentariosDTO comentariosDTO);
-}
+/*	public Comentarios comentarioToDao(ComentariosDTO comentariosDTO);
+}*/
+

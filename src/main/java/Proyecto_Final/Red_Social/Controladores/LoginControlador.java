@@ -80,7 +80,7 @@ public class LoginControlador {
 	@GetMapping("/privada/home")
 	public String loginCorrecto(Model model, Authentication authentication) {
 		Usuario usuario = usuarioServicio.buscarPorEmail(authentication.getName());
-		String nombreUsuario = usuario.getNombreUsuario();
+		String nombreUsuario = usuario.getNombreCuentaUsuario();
 		model.addAttribute("nombreUsuario", nombreUsuario);
 		// Agregar información sobre si el usuario es administrador al modelo
 	    model.addAttribute("isAdmin", usuario.getAdmin());

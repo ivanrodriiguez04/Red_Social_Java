@@ -13,7 +13,8 @@ public class UsuarioToDtoImplementacion implements UsuarioToDtoInterfaz {
 	public UsuarioDTO usuarioToDto(Usuario u) {
 		try {
 			UsuarioDTO dto = new UsuarioDTO();
-			dto.setNombreUsuario(u.getNombreUsuario());
+			dto.setNombreCompletoUsuario(u.getNombreCompletoUsuario());
+			dto.setNombreCuentaUsuario(u.getNombreCuentaUsuario());
 			dto.setEmailUsuario(u.getEmailUsuario());
 			dto.setTelefonoUsuario(u.getTelefonoUsuario());
 			dto.setContraseñaUsuario(u.getContraseñaUsuario());

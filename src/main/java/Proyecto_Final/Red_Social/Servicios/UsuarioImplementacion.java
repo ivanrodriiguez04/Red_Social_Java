@@ -41,7 +41,7 @@ public class UsuarioImplementacion implements UsuarioInterfaz {
 			}
 
 
-			// Si llega a esta línea es que no existe el usuario con el email y el dni a registrar
+			// Si llega a esta línea es que no existe el usuario con el email 
 			userDto.setContraseñaUsuario(passwordEncoder.encode(userDto.getContraseñaUsuario()));
 			Usuario usuarioDao = toDao.usuarioToDao(userDto);
 			usuarioDao.setFchAltaUsuario(Calendar.getInstance());
@@ -79,7 +79,7 @@ public class UsuarioImplementacion implements UsuarioInterfaz {
 				repositorio.save(usuarioExistente);
 
 				//Enviar el correo de recuperación
-				String nombreUsuario = usuarioExistente.getNombreUsuario();
+				String nombreUsuario = usuarioExistente.getNombreCuentaUsuario();
 				emailInterfaz.enviarEmailRecuperacion(emailUsuario, nombreUsuario, token);
 				
 				return true;

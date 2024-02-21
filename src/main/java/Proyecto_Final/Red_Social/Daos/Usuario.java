@@ -11,8 +11,10 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_usuario",nullable=false)
 	private long id_Usuario;
-	@Column(name = "nombre_usuario", nullable = false, length = 50)
-	private String nombreUsuario;
+	@Column(name = "nombre_completo_usuario", nullable = false, length = 50)
+	private String nombreCompletoUsuario;
+	@Column(name = "nombre_cuenta_usuario", nullable = false, length = 50)
+	private String nombreCuentaUsuario;
 	@Column(name = "email_usuario", nullable = false, unique = true, length = 50)
 	private String emailUsuario;
 	@Column(name = "contraseña_usuario", nullable = false, length = 100)
@@ -29,15 +31,14 @@ public class Usuario {
 	private Calendar expiracionToken;
 	@Column(name = "admin", nullable = false)
 	public Boolean admin = true;
-	
 	//Constructores
-	
-	public Usuario(long id_Usuario, String nombreUsuario, String emailUsuario, String contraseñaUsuario,
-			int telefonoUsuario, Calendar fchAltaUsuario, Calendar fchBajaUsuario, String token,
-			Calendar expiracionToken, Boolean admin) {
+	public Usuario(long id_Usuario, String nombreCompletoUsuario, String nombreCuentaUsuario,
+			String emailUsuario, String contraseñaUsuario, int telefonoUsuario, Calendar fchAltaUsuario,
+			Calendar fchBajaUsuario, String token, Calendar expiracionToken, Boolean admin) {
 		super();
 		this.id_Usuario = id_Usuario;
-		this.nombreUsuario = nombreUsuario;
+		this.nombreCompletoUsuario = nombreCompletoUsuario;
+		this.nombreCuentaUsuario = nombreCuentaUsuario;
 		this.emailUsuario = emailUsuario;
 		this.contraseñaUsuario = contraseñaUsuario;
 		this.telefonoUsuario = telefonoUsuario;
@@ -47,6 +48,7 @@ public class Usuario {
 		this.expiracionToken = expiracionToken;
 		this.admin = admin;
 	}
+	
 	public Usuario() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -59,11 +61,17 @@ public class Usuario {
 	public void setId_Usuario(long id_Usuario) {
 		this.id_Usuario = id_Usuario;
 	}
-	public String getNombreUsuario() {
-		return nombreUsuario;
+	public String getNombreCompletoUsuario() {
+		return nombreCompletoUsuario;
 	}
-	public void setNombreUsuario(String nombreUsuario) {
-		this.nombreUsuario = nombreUsuario;
+	public void setNombreCompletoUsuario(String nombreCompletoUsuario) {
+		this.nombreCompletoUsuario = nombreCompletoUsuario;
+	}
+	public String getNombreCuentaUsuario() {
+		return nombreCuentaUsuario;
+	}
+	public void setNombreCuentaUsuario(String nombreCuentaUsuario) {
+		this.nombreCuentaUsuario = nombreCuentaUsuario;
 	}
 	public String getEmailUsuario() {
 		return emailUsuario;
@@ -77,14 +85,14 @@ public class Usuario {
 	public void setContraseñaUsuario(String contraseñaUsuario) {
 		this.contraseñaUsuario = contraseñaUsuario;
 	}
-	public Calendar getFchAltaUsuario() {
-		return fchAltaUsuario;
-	}
 	public int getTelefonoUsuario() {
 		return telefonoUsuario;
 	}
 	public void setTelefonoUsuario(int telefonoUsuario) {
 		this.telefonoUsuario = telefonoUsuario;
+	}
+	public Calendar getFchAltaUsuario() {
+		return fchAltaUsuario;
 	}
 	public void setFchAltaUsuario(Calendar fchAltaUsuario) {
 		this.fchAltaUsuario = fchAltaUsuario;
@@ -113,18 +121,18 @@ public class Usuario {
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
 	}
-	
 	//Metodos
-	
 	public boolean isAdmin() {
 		
 	    return admin != null && admin;
 	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(admin, contraseñaUsuario, emailUsuario, expiracionToken, fchAltaUsuario, fchBajaUsuario,
-				id_Usuario, nombreUsuario, telefonoUsuario, token);
+		return Objects.hash(admin, contraseñaUsuario, emailUsuario, expiracionToken, fchAltaUsuario,
+				fchBajaUsuario, id_Usuario, nombreCuentaUsuario, nombreCompletoUsuario, telefonoUsuario, token);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -134,19 +142,25 @@ public class Usuario {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		return Objects.equals(admin, other.admin) && Objects.equals(contraseñaUsuario, other.contraseñaUsuario)
+		return Objects.equals(admin, other.admin)
+				&& Objects.equals(contraseñaUsuario, other.contraseñaUsuario)
 				&& Objects.equals(emailUsuario, other.emailUsuario)
 				&& Objects.equals(expiracionToken, other.expiracionToken)
 				&& Objects.equals(fchAltaUsuario, other.fchAltaUsuario)
-				&& Objects.equals(fchBajaUsuario, other.fchBajaUsuario) && id_Usuario == other.id_Usuario
-				&& Objects.equals(nombreUsuario, other.nombreUsuario) && telefonoUsuario == other.telefonoUsuario
+				&& Objects.equals(fchBajaUsuario, other.fchBajaUsuario) 
+				&& id_Usuario == other.id_Usuario
+				&& Objects.equals(nombreCuentaUsuario, other.nombreCuentaUsuario)
+				&& Objects.equals(nombreCompletoUsuario, other.nombreCompletoUsuario) 
+				&& telefonoUsuario == other.telefonoUsuario
 				&& Objects.equals(token, other.token);
 	}
+
 	@Override
 	public String toString() {
-		return "Usuario [id_Usuario=" + id_Usuario + ", nombreUsuario=" + nombreUsuario + ", emailUsuario="
-				+ emailUsuario + ", contraseñaUsuario=" + contraseñaUsuario + ", telefonoUsuario=" + telefonoUsuario
+		return "Usuario [id_Usuario=" + id_Usuario + ", nombreCompletoUsuario=" + nombreCompletoUsuario + ", nombreCuentaUsuario=" + nombreCuentaUsuario + ", emailUsuario=" + emailUsuario
+				+ ", contraseñaUsuario=" + contraseñaUsuario + ", telefonoUsuario=" + telefonoUsuario
 				+ ", fchAltaUsuario=" + fchAltaUsuario + ", fchBajaUsuario=" + fchBajaUsuario + ", token=" + token
 				+ ", expiracionToken=" + expiracionToken + ", admin=" + admin + "]";
 	}
+
 }

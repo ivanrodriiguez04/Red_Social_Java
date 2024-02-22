@@ -3,6 +3,7 @@ package Proyecto_Final.Red_Social.Servicios;
 import java.util.List;
 
 import Proyecto_Final.Red_Social.Daos.Usuario;
+import Proyecto_Final.Red_Social.Dtos.TokenDTO;
 import Proyecto_Final.Red_Social.Dtos.UsuarioDTO;
 
 public interface UsuarioInterfaz {
@@ -33,7 +34,7 @@ public interface UsuarioInterfaz {
 	 * @param usuario El usuario al que se le establecera la nueva contraseña
 	 * @return true si el proceso se ha realizado correctamente, false en caso contrario
 	 */
-	public boolean modificarContraseñaConToken(UsuarioDTO usuario);
+	public boolean modificarContraseñaConToken(TokenDTO token);
 	
 	/**
 	 * Busca un usuario por su token de recuperación.

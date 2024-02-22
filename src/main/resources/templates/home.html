@@ -24,14 +24,14 @@
 				<li>
 					<form th:action="@{/auth/logout}" method="post" id="logoutForm">
 						<button type="button" class="btn btn-dark mt-2"
-							onclick="confirmarLogout()">Logout</button>
+							onclick="confirmarLogout()">Cerrar Sesion</button>
 					</form>
 				</li>
 			</ul>
 		</div>
 	</nav>
 
-	<h3 class="text-dark text-center mt-5">Bienvenido <span th:text="${nombreUsuario}">usuario</span></h3>
+	<h3 class="text-dark text-center mt-5">Bienvenido <span th:text="${nombreCuentaUsuario}">usuario</span></h3>
 	
 	   <!-- Mostrar el botón solo si el usuario es administrador -->
     <div th:if="${isAdmin}">

@@ -1,7 +1,6 @@
 package Proyecto_Final.Red_Social.Seguridad;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -45,7 +44,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			builder = User.withUsername(username);
 			builder.disabled(false);
 			builder.password(user.getContraseñaUsuario());
-			builder.authorities(new SimpleGrantedAuthority("ROLE_USER"));
+			builder.authorities(user.getRol());
 		} else {
 	    	System.out.println("Usuario no encontrado en la base de datos");
 			throw new UsernameNotFoundException("Usuario no encontrado");

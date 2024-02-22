@@ -83,7 +83,7 @@ public class LoginControlador {
 		String nombreUsuario = usuario.getNombreCuentaUsuario();
 		model.addAttribute("nombreUsuario", nombreUsuario);
 		// Agregar información sobre si el usuario es administrador al modelo
-	    model.addAttribute("isAdmin", usuario.getAdmin());
+	    model.addAttribute("isAdmin", usuario.getRol());
 		return "home";
 	}
 

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import Proyecto_Final.Red_Social.Daos.Usuario;
 import Proyecto_Final.Red_Social.Dtos.UsuarioDTO;
 import Proyecto_Final.Red_Social.Servicios.UsuarioInterfaz;
+import Proyecto_Final.Red_Social.Servicios.UsuarioToDtoImplementacion;
+import Proyecto_Final.Red_Social.Servicios.UsuarioToDtoInterfaz;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -61,7 +63,7 @@ public class AdministradorControlador {
 	@GetMapping("/privada/editar/{id}")
     public String editarUsuario(@PathVariable Long id, Model model, HttpServletRequest request) {
 	 	Usuario usuarioDAO = usuarioServicio.buscarPorId(id);
-	 	UsuarioToDtoInterfaz it = new UsuarioToDtoImplementacion();
+	 	UsuarioToDtoInterfaz it= new UsuarioToDtoImplementacion();
 	 	UsuarioDTO usuarioDTO = it.usuarioToDto(usuarioDAO);
 	 	System.out.println(usuarioDTO.isCuentaConfirmada());
 	 	// Comprobar si el usuario es superAdmin

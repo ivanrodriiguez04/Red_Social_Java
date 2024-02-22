@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import Proyecto_Final.Red_Social.Dtos.TokenDTO;
 import Proyecto_Final.Red_Social.Dtos.UsuarioDTO;
 import Proyecto_Final.Red_Social.Servicios.UsuarioInterfaz;
 
@@ -104,20 +105,20 @@ public class RecuperarContraseñaControlador {
 	 * @return La vista de login.html si la modificación fue exitosa; de lo contrario, la vista de iniciarRecuperación.html
 	 */
 	@PostMapping("/recuperar")
-	public String procesarRecuperacionContraseña(@ModelAttribute UsuarioDTO usuarioDTO, Model model) {
+	public String procesarRecuperacionContraseña(@ModelAttribute TokenDTO tokenDTO, Model model) {
 		try {
-            UsuarioDTO usuarioExistente = usuarioServicio.obtenerUsuarioPorToken(usuarioDTO.getToken());
-
+            UsuarioDTO usuarioExistente = usuarioServicio.obtenerUsuarioPorToken(tokenDTO.getToken());
+            
             if (usuarioExistente == null) {
                 model.addAttribute("mensajeErrorTokenValidez", "El enlace de recuperación no válido");
                 return "iniciarRecuperacion";
             }
-            if (usuarioExistente.getExpiracionToken().before(Calendar.getInstance())) {
+            if (tokenDTO.getExpiracionToken().before(Calendar.getInstance())) {
                 model.addAttribute("mensajeErrorTokenExpirado", "El enlace de recuperación ha expirado");
                 return "iniciarRecuperacion";
             }
 
-            boolean modificadaPassword = usuarioServicio.modificarContraseñaConToken(usuarioDTO);
+            boolean modificadaPassword = usuarioServicio.modificarContraseñaConToken(tokenDTO);
 
             if (modificadaPassword) {
                 model.addAttribute("contraseñaModificadaExito", "Contraseña modificada OK");

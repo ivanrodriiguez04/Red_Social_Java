@@ -1,4 +1,4 @@
-/*package Proyecto_Final.Red_Social.Servicios;
+package Proyecto_Final.Red_Social.Servicios;
 
 import java.util.ArrayList;
 
@@ -32,4 +32,4 @@ public class ComentarioToDaoImplementacion implements ComentarioToDaoInterfaz {
 	        
 	        return comentario;
 	}
-}*/
+}

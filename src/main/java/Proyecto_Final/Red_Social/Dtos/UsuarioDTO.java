@@ -1,6 +1,5 @@
 package Proyecto_Final.Red_Social.Dtos;
 
-import java.util.Calendar;
 import java.util.Objects;
 
 public class UsuarioDTO {
@@ -14,14 +13,12 @@ public class UsuarioDTO {
 	private String contraseñaUsuario2;
 	private int telefonoUsuario;
 	private long idAcceso;
-	private String token;
-	private Calendar expiracionToken;
 	private String rol="usuario";
 	 private boolean cuentaConfirmada;
 	 //Constructores
 	public UsuarioDTO(long idUsuario, String nombreCompletoUsuario, String nombreCuentaUsuario, String emailUsuario,
-			String contraseñaUsuario, String contraseñaUsuario2, int telefonoUsuario, long idAcceso, String token,
-			Calendar expiracionToken, String rol, boolean cuentaConfirmada) {
+			String contraseñaUsuario, String contraseñaUsuario2, int telefonoUsuario, long idAcceso,
+			 String rol, boolean cuentaConfirmada) {
 		super();
 		this.idUsuario = idUsuario;
 		this.nombreCompletoUsuario = nombreCompletoUsuario;
@@ -31,8 +28,6 @@ public class UsuarioDTO {
 		this.contraseñaUsuario2 = contraseñaUsuario2;
 		this.telefonoUsuario = telefonoUsuario;
 		this.idAcceso = idAcceso;
-		this.token = token;
-		this.expiracionToken = expiracionToken;
 		this.rol = rol;
 		this.cuentaConfirmada = cuentaConfirmada;
 	}
@@ -89,18 +84,6 @@ public class UsuarioDTO {
 	public void setIdAcceso(long idAcceso) {
 		this.idAcceso = idAcceso;
 	}
-	public String getToken() {
-		return token;
-	}
-	public void setToken(String token) {
-		this.token = token;
-	}
-	public Calendar getExpiracionToken() {
-		return expiracionToken;
-	}
-	public void setExpiracionToken(Calendar expiracionToken) {
-		this.expiracionToken = expiracionToken;
-	}
 	public String getRol() {
 		return rol;
 	}
@@ -119,8 +102,8 @@ public class UsuarioDTO {
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(contraseñaUsuario, contraseñaUsuario2, cuentaConfirmada, emailUsuario, expiracionToken,
-				idAcceso, idUsuario, nombreCompletoUsuario, nombreCuentaUsuario, rol, telefonoUsuario, token);
+		return Objects.hash(contraseñaUsuario, contraseñaUsuario2, cuentaConfirmada, emailUsuario,
+				idAcceso, idUsuario, nombreCompletoUsuario, nombreCuentaUsuario, rol, telefonoUsuario);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -134,21 +117,18 @@ public class UsuarioDTO {
 		return Objects.equals(contraseñaUsuario, other.contraseñaUsuario)
 				&& Objects.equals(contraseñaUsuario2, other.contraseñaUsuario2)
 				&& cuentaConfirmada == other.cuentaConfirmada && Objects.equals(emailUsuario, other.emailUsuario)
-				&& Objects.equals(expiracionToken, other.expiracionToken) && idAcceso == other.idAcceso
+				&& idAcceso == other.idAcceso
 				&& idUsuario == other.idUsuario && Objects.equals(nombreCompletoUsuario, other.nombreCompletoUsuario)
 				&& Objects.equals(nombreCuentaUsuario, other.nombreCuentaUsuario) && Objects.equals(rol, other.rol)
-				&& telefonoUsuario == other.telefonoUsuario && Objects.equals(token, other.token);
+				&& telefonoUsuario == other.telefonoUsuario ;
 	}
 	@Override
 	public String toString() {
 		return "UsuarioDTO [idUsuario=" + idUsuario + ", nombreCompletoUsuario=" + nombreCompletoUsuario
 				+ ", nombreCuentaUsuario=" + nombreCuentaUsuario + ", emailUsuario=" + emailUsuario
 				+ ", contraseñaUsuario=" + contraseñaUsuario + ", contraseñaUsuario2=" + contraseñaUsuario2
-				+ ", telefonoUsuario=" + telefonoUsuario + ", idAcceso=" + idAcceso + ", token=" + token
-				+ ", expiracionToken=" + expiracionToken + ", rol=" + rol + ", cuentaConfirmada=" + cuentaConfirmada
+				+ ", telefonoUsuario=" + telefonoUsuario + ", idAcceso=" + idAcceso 
+				+", rol=" + rol + ", cuentaConfirmada=" + cuentaConfirmada
 				+ "]";
 	}
-	 
-	 
-	 
 }

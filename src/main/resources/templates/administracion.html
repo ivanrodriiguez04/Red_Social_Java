@@ -57,11 +57,11 @@
 							    </span>
 							</td>
 							<!-- botón de EDITAR, dentro está el cambio de rol -->
-							<td sec:authorize="hasAnyRole('ROLE_3', 'ROLE_4')">
+							<td sec:authorize="hasAnyRole('admin', 'superadmin')">
 							    <a class="btn btn-primary" th:attr="data-id=${usuario.id}" onclick="confirmarEdicion(event)" th:text="'Editar'"></a>
 							</td>
 							<!-- botón de ELIMINAR -->
-							<td sec:authorize="hasAnyRole('ROLE_3', 'ROLE_4')">
+							<td sec:authorize="hasAnyRole('admin', 'superadmin')">
 								<a class="btn btn-danger" th:attr="data-id=${usuario.id}" th:text="'eliminar'"
 									onclick="confirmarEliminar(event)"></a>
 							</td>

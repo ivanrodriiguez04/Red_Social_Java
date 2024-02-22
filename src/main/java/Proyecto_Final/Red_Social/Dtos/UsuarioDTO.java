@@ -16,11 +16,12 @@ public class UsuarioDTO {
 	private long idAcceso;
 	private String token;
 	private Calendar expiracionToken;
-	public Boolean admin=true;	
-	//Constructores
-	public UsuarioDTO(long idUsuario, String nombreCompletoUsuario, String nombreCuentaUsuario,
-			String emailUsuario, String contraseñaUsuario, String contraseñaUsuario2, int telefonoUsuario,
-			long idAcceso, String token, Calendar expiracionToken, Boolean admin) {
+	private String rol="usuario";
+	 private boolean cuentaConfirmada;
+	 //Constructores
+	public UsuarioDTO(long idUsuario, String nombreCompletoUsuario, String nombreCuentaUsuario, String emailUsuario,
+			String contraseñaUsuario, String contraseñaUsuario2, int telefonoUsuario, long idAcceso, String token,
+			Calendar expiracionToken, String rol, boolean cuentaConfirmada) {
 		super();
 		this.idUsuario = idUsuario;
 		this.nombreCompletoUsuario = nombreCompletoUsuario;
@@ -32,7 +33,8 @@ public class UsuarioDTO {
 		this.idAcceso = idAcceso;
 		this.token = token;
 		this.expiracionToken = expiracionToken;
-		this.admin = admin;
+		this.rol = rol;
+		this.cuentaConfirmada = cuentaConfirmada;
 	}
 	public UsuarioDTO() {
 		super();
@@ -99,17 +101,26 @@ public class UsuarioDTO {
 	public void setExpiracionToken(Calendar expiracionToken) {
 		this.expiracionToken = expiracionToken;
 	}
-	public Boolean getAdmin() {
-		return admin;
+	public String getRol() {
+		return rol;
 	}
-	public void setAdmin(Boolean admin) {
-		this.admin = admin;
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+	public boolean isCuentaConfirmada() {
+		return cuentaConfirmada;
+	}
+	public void setCuentaConfirmada(boolean cuentaConfirmada) {
+		this.cuentaConfirmada = cuentaConfirmada;
 	}
 	//Metodos
+	public boolean isAdmin() {
+		return "admin".equals(getRol());
+	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(admin, contraseñaUsuario, contraseñaUsuario2, emailUsuario,
-				expiracionToken, idAcceso, idUsuario, nombreCuentaUsuario, nombreCompletoUsuario, telefonoUsuario, token);
+		return Objects.hash(contraseñaUsuario, contraseñaUsuario2, cuentaConfirmada, emailUsuario, expiracionToken,
+				idAcceso, idUsuario, nombreCompletoUsuario, nombreCuentaUsuario, rol, telefonoUsuario, token);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -120,24 +131,24 @@ public class UsuarioDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		UsuarioDTO other = (UsuarioDTO) obj;
-		return Objects.equals(admin, other.admin)
-				&& Objects.equals(contraseñaUsuario, other.contraseñaUsuario)
+		return Objects.equals(contraseñaUsuario, other.contraseñaUsuario)
 				&& Objects.equals(contraseñaUsuario2, other.contraseñaUsuario2)
-				&& Objects.equals(emailUsuario, other.emailUsuario)
-				&& Objects.equals(expiracionToken, other.expiracionToken) 
-				&& idAcceso == other.idAcceso
-				&& idUsuario == other.idUsuario 
-				&& Objects.equals(nombreCuentaUsuario, other.nombreCuentaUsuario)
-				&& Objects.equals(nombreCompletoUsuario, other.nombreCompletoUsuario) 
-				&& telefonoUsuario == other.telefonoUsuario
-				&& Objects.equals(token, other.token);
+				&& cuentaConfirmada == other.cuentaConfirmada && Objects.equals(emailUsuario, other.emailUsuario)
+				&& Objects.equals(expiracionToken, other.expiracionToken) && idAcceso == other.idAcceso
+				&& idUsuario == other.idUsuario && Objects.equals(nombreCompletoUsuario, other.nombreCompletoUsuario)
+				&& Objects.equals(nombreCuentaUsuario, other.nombreCuentaUsuario) && Objects.equals(rol, other.rol)
+				&& telefonoUsuario == other.telefonoUsuario && Objects.equals(token, other.token);
 	}
 	@Override
 	public String toString() {
-		return "UsuarioDTO [idUsuario=" + idUsuario + ", nombreCompletoUsuario=" + nombreCompletoUsuario + ", nombreCuentaUsuario=" + nombreCuentaUsuario + ", emailUsuario=" + emailUsuario
+		return "UsuarioDTO [idUsuario=" + idUsuario + ", nombreCompletoUsuario=" + nombreCompletoUsuario
+				+ ", nombreCuentaUsuario=" + nombreCuentaUsuario + ", emailUsuario=" + emailUsuario
 				+ ", contraseñaUsuario=" + contraseñaUsuario + ", contraseñaUsuario2=" + contraseñaUsuario2
 				+ ", telefonoUsuario=" + telefonoUsuario + ", idAcceso=" + idAcceso + ", token=" + token
-				+ ", expiracionToken=" + expiracionToken + ", admin=" + admin + "]";
+				+ ", expiracionToken=" + expiracionToken + ", rol=" + rol + ", cuentaConfirmada=" + cuentaConfirmada
+				+ "]";
 	}
-	
+	 
+	 
+	 
 }

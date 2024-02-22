@@ -1,6 +1,7 @@
 package Proyecto_Final.Red_Social.Servicios;
 
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,6 +11,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import Proyecto_Final.Red_Social.Daos.Usuario;
 import Proyecto_Final.Red_Social.Dtos.UsuarioDTO;
 import Proyecto_Final.Red_Social.Repositorios.usuarioRepositorio;
+import jakarta.persistence.PersistenceException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -123,6 +125,101 @@ public class UsuarioImplementacion implements UsuarioInterfaz {
 			System.out.println("No existe el usuario con el token "+token);
 			return null;
 		}
+	}
+
+	@Override
+	public Usuario eliminar(long id) {
+		try {
+			Usuario usuario = repositorio.findById(id).orElse(null);
+			if (usuario != null) {
+				repositorio.delete(usuario);
+				System.out.println("Borrado con exito");
+			}
+			return usuario;
+		} catch (Exception e) {
+			System.out.println("[IMPL-Usu][eliminar] " + e.getMessage());
+			return null;
+		}
+	}
+
+	@Override
+	public void actualizarUsuario(UsuarioDTO usuarioDTO) {
+		try {
+			// Convierte el DTO a entidad DAO
+			Usuario usuarioDao = toDao.usuarioToDao(usuarioDTO);
+			// Actualiza la información en la base de datos
+			Usuario usuarioActualizado = repositorio.save(usuarioDao);
+			// Actualiza el DTO con la información de la base de datos
+			UsuarioDTO usuarioDtoActualizado = toDto.usuarioToDto(usuarioActualizado);
+
+		} catch (IllegalArgumentException iae) {
+			System.out.println("[IMPL-Usu][actualizarUsuario] " + iae.getMessage());
+		} catch (Exception e) {
+			System.out.println("[IMPL-Usu][actualizarUsuario] " + e.getMessage());
+		}
+		
+	}
+
+	@Override
+	public UsuarioDTO buscarDtoPorId(Long id) {
+		// TODO Auto-generated method stub
+		try {
+			Usuario usuarioDao = repositorio.findById(id).orElse(null);
+			if (usuarioDao != null) {
+				return toDto.usuarioToDto(usuarioDao);
+			}
+		} catch (Exception e) {
+			System.out.println("[IMPL-Usu][buscarDtoPorId] " + e.getMessage());
+		}
+		return null;
+	}
+
+	@Override
+	public boolean estaLaCuentaConfirmada(String email) {
+		try {
+			Usuario usuarioExistente = repositorio.findFirstByEmailUsuario(email);
+			if (usuarioExistente != null && usuarioExistente.isCuentaConfirmada()) {
+				return true;
+			}
+		} catch (Exception e) {
+			System.out.println("[Error ImplementacionUsuario - estaLaCuentaConfirmada()] Error al comprobar si la cuenta ya ha sido confirmada" + e.getMessage());
+		}	
+		return false;
+	}
+
+	@Override
+	public boolean confirmarCuenta(String token) {
+		try {
+			Usuario usuarioExistente = repositorio.findByToken(token);
+
+			if (usuarioExistente != null && !usuarioExistente.isCuentaConfirmada()) {
+				// Entra en esta condición si el usuario existe y su cuenta no se ha confirmado
+				usuarioExistente.setCuentaConfirmada(true);
+				usuarioExistente.setToken(null);
+				repositorio.save(usuarioExistente);
+
+				return true;
+			} else {
+				System.out.println("La cuenta no existe o ya está confirmada");
+				return false;
+			}
+		} catch (IllegalArgumentException iae) {
+			System.out.println("[Error ImplementacionUsuario - confirmarCuenta()] Error al confirmar la cuenta " + iae.getMessage());
+			return false;
+		} catch (PersistenceException e) {
+			System.out.println("[Error ImplementacionUsuario - confirmarCuenta()] Error de persistencia al confirmar la cuenta" + e.getMessage());
+			return false;
+		}
+	}
+	@Override
+	public List<UsuarioDTO> buscarTodos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Usuario buscarPorId(long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

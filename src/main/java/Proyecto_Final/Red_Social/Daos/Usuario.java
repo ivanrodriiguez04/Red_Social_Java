@@ -29,12 +29,14 @@ public class Usuario {
 	private String token;
 	@Column(name = "expiracion_token", nullable = true, length = 100)
 	private Calendar expiracionToken;
-	@Column(name = "admin", nullable = false)
-	public Boolean admin = true;
+	@Column(name = "rol", nullable = false)
+	public String rol = "usuario";
+	@Column(name="cuenta_confirmada",nullable=false,columnDefinition="boolean default false")
+	private boolean cuentaConfirmada;
 	//Constructores
-	public Usuario(long id_Usuario, String nombreCompletoUsuario, String nombreCuentaUsuario,
-			String emailUsuario, String contraseñaUsuario, int telefonoUsuario, Calendar fchAltaUsuario,
-			Calendar fchBajaUsuario, String token, Calendar expiracionToken, Boolean admin) {
+	public Usuario(long id_Usuario, String nombreCompletoUsuario, String nombreCuentaUsuario, String emailUsuario,
+			String contraseñaUsuario, int telefonoUsuario, Calendar fchAltaUsuario, Calendar fchBajaUsuario,
+			String token, Calendar expiracionToken, String rol, boolean cuentaConfirmada) {
 		super();
 		this.id_Usuario = id_Usuario;
 		this.nombreCompletoUsuario = nombreCompletoUsuario;
@@ -46,14 +48,13 @@ public class Usuario {
 		this.fchBajaUsuario = fchBajaUsuario;
 		this.token = token;
 		this.expiracionToken = expiracionToken;
-		this.admin = admin;
+		this.rol = rol;
+		this.cuentaConfirmada = cuentaConfirmada;
 	}
-	
 	public Usuario() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
 	//Getters & Setters
 	public long getId_Usuario() {
 		return id_Usuario;
@@ -115,24 +116,30 @@ public class Usuario {
 	public void setExpiracionToken(Calendar expiracionToken) {
 		this.expiracionToken = expiracionToken;
 	}
-	public Boolean getAdmin() {
-		return admin;
+	public String getRol() {
+		return rol;
 	}
-	public void setAdmin(Boolean admin) {
-		this.admin = admin;
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+	public boolean isCuentaConfirmada() {
+		return cuentaConfirmada;
+	}
+	public void setCuentaConfirmada(boolean cuentaConfirmada) {
+		this.cuentaConfirmada = cuentaConfirmada;
 	}
 	//Metodos
 	public boolean isAdmin() {
-		
-	    return admin != null && admin;
+		if(getRol() == "admin")
+			return true;
+		else
+			return false;
 	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(admin, contraseñaUsuario, emailUsuario, expiracionToken, fchAltaUsuario,
-				fchBajaUsuario, id_Usuario, nombreCuentaUsuario, nombreCompletoUsuario, telefonoUsuario, token);
+		return Objects.hash(contraseñaUsuario, cuentaConfirmada, emailUsuario, expiracionToken, fchAltaUsuario,
+				fchBajaUsuario, id_Usuario, nombreCompletoUsuario, nombreCuentaUsuario, rol, telefonoUsuario, token);
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -142,25 +149,25 @@ public class Usuario {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		return Objects.equals(admin, other.admin)
-				&& Objects.equals(contraseñaUsuario, other.contraseñaUsuario)
+		return Objects.equals(contraseñaUsuario, other.contraseñaUsuario) && cuentaConfirmada == other.cuentaConfirmada
 				&& Objects.equals(emailUsuario, other.emailUsuario)
 				&& Objects.equals(expiracionToken, other.expiracionToken)
 				&& Objects.equals(fchAltaUsuario, other.fchAltaUsuario)
-				&& Objects.equals(fchBajaUsuario, other.fchBajaUsuario) 
-				&& id_Usuario == other.id_Usuario
-				&& Objects.equals(nombreCuentaUsuario, other.nombreCuentaUsuario)
-				&& Objects.equals(nombreCompletoUsuario, other.nombreCompletoUsuario) 
-				&& telefonoUsuario == other.telefonoUsuario
-				&& Objects.equals(token, other.token);
+				&& Objects.equals(fchBajaUsuario, other.fchBajaUsuario) && id_Usuario == other.id_Usuario
+				&& Objects.equals(nombreCompletoUsuario, other.nombreCompletoUsuario)
+				&& Objects.equals(nombreCuentaUsuario, other.nombreCuentaUsuario) && Objects.equals(rol, other.rol)
+				&& telefonoUsuario == other.telefonoUsuario && Objects.equals(token, other.token);
 	}
-
 	@Override
 	public String toString() {
-		return "Usuario [id_Usuario=" + id_Usuario + ", nombreCompletoUsuario=" + nombreCompletoUsuario + ", nombreCuentaUsuario=" + nombreCuentaUsuario + ", emailUsuario=" + emailUsuario
+		return "Usuario [id_Usuario=" + id_Usuario + ", nombreCompletoUsuario=" + nombreCompletoUsuario
+				+ ", nombreCuentaUsuario=" + nombreCuentaUsuario + ", emailUsuario=" + emailUsuario
 				+ ", contraseñaUsuario=" + contraseñaUsuario + ", telefonoUsuario=" + telefonoUsuario
 				+ ", fchAltaUsuario=" + fchAltaUsuario + ", fchBajaUsuario=" + fchBajaUsuario + ", token=" + token
-				+ ", expiracionToken=" + expiracionToken + ", admin=" + admin + "]";
+				+ ", expiracionToken=" + expiracionToken + ", rol=" + rol + ", cuentaConfirmada=" + cuentaConfirmada
+				+ "]";
 	}
+	
+
 
 }

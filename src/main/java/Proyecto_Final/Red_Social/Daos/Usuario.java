@@ -31,17 +31,24 @@ public class Usuario {
 	public String rol = "usuario";
 	@Column(name="cuenta_confirmada",nullable=false,columnDefinition="boolean default false")
 	private boolean cuentaConfirmada;
-	@OneToMany(mappedBy="usuario", cascade=CascadeType.REMOVE)
-	List<Token> listaToken;
-	@ManyToMany
+	@Column(name = "token_recuperacion", nullable = true, length = 100)
+	private String token;
+	@Column(name = "expiracion_token", nullable = true, length = 100)
+	private Calendar expiracionToken;
+	@OneToMany
 	@JoinTable(name = "usuario_comentarios", schema = "proyecto_final",
 	   joinColumns = @JoinColumn(name = "id_usuario"), 
 	   inverseJoinColumns = @JoinColumn(name = "id_comentario"))
 	private List<Comentarios> usuarioComentario = new ArrayList<>();
+	
 	//Constructores
+	public Usuario() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Usuario(long id_Usuario, String nombreCompletoUsuario, String nombreCuentaUsuario, String emailUsuario,
 			String contraseñaUsuario, int telefonoUsuario, Calendar fchAltaUsuario, Calendar fchBajaUsuario, String rol,
-			boolean cuentaConfirmada, List<Token> listaToken) {
+			boolean cuentaConfirmada, String token, Calendar expiracionToken, List<Comentarios> usuarioComentario) {
 		super();
 		this.id_Usuario = id_Usuario;
 		this.nombreCompletoUsuario = nombreCompletoUsuario;
@@ -53,11 +60,9 @@ public class Usuario {
 		this.fchBajaUsuario = fchBajaUsuario;
 		this.rol = rol;
 		this.cuentaConfirmada = cuentaConfirmada;
-		this.listaToken = listaToken;
-	}
-	public Usuario() {
-		super();
-		// TODO Auto-generated constructor stub
+		this.token = token;
+		this.expiracionToken = expiracionToken;
+		this.usuarioComentario = usuarioComentario;
 	}
 	
 	//Getters & Setters
@@ -121,13 +126,25 @@ public class Usuario {
 	public void setCuentaConfirmada(boolean cuentaConfirmada) {
 		this.cuentaConfirmada = cuentaConfirmada;
 	}
-	public List<Token> getListaToken() {
-		return listaToken;
+	public String getToken() {
+		return token;
 	}
-	public void setListaToken(List<Token> listaToken) {
-		this.listaToken = listaToken;
+	public void setToken(String token) {
+		this.token = token;
 	}
-	
+	public Calendar getExpiracionToken() {
+		return expiracionToken;
+	}
+	public void setExpiracionToken(Calendar expiracionToken) {
+		this.expiracionToken = expiracionToken;
+	}
+	public List<Comentarios> getUsuarioComentario() {
+		return usuarioComentario;
+	}
+	public void setUsuarioComentario(List<Comentarios> usuarioComentario) {
+		this.usuarioComentario = usuarioComentario;
+	}
+
 	//Metodos
 	public boolean isAdmin() {
 		if(getRol() == "admin")
@@ -137,8 +154,9 @@ public class Usuario {
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(contraseñaUsuario, cuentaConfirmada, emailUsuario, fchAltaUsuario, fchBajaUsuario,
-				id_Usuario, listaToken, nombreCompletoUsuario, nombreCuentaUsuario, rol, telefonoUsuario);
+		return Objects.hash(contraseñaUsuario, cuentaConfirmada, emailUsuario, expiracionToken, fchAltaUsuario,
+				fchBajaUsuario, id_Usuario, nombreCompletoUsuario, nombreCuentaUsuario, rol, telefonoUsuario, token,
+				usuarioComentario);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -151,12 +169,13 @@ public class Usuario {
 		Usuario other = (Usuario) obj;
 		return Objects.equals(contraseñaUsuario, other.contraseñaUsuario) && cuentaConfirmada == other.cuentaConfirmada
 				&& Objects.equals(emailUsuario, other.emailUsuario)
+				&& Objects.equals(expiracionToken, other.expiracionToken)
 				&& Objects.equals(fchAltaUsuario, other.fchAltaUsuario)
 				&& Objects.equals(fchBajaUsuario, other.fchBajaUsuario) && id_Usuario == other.id_Usuario
-				&& Objects.equals(listaToken, other.listaToken)
 				&& Objects.equals(nombreCompletoUsuario, other.nombreCompletoUsuario)
 				&& Objects.equals(nombreCuentaUsuario, other.nombreCuentaUsuario) && Objects.equals(rol, other.rol)
-				&& telefonoUsuario == other.telefonoUsuario;
+				&& telefonoUsuario == other.telefonoUsuario && Objects.equals(token, other.token)
+				&& Objects.equals(usuarioComentario, other.usuarioComentario);
 	}
 	@Override
 	public String toString() {
@@ -164,7 +183,7 @@ public class Usuario {
 				+ ", nombreCuentaUsuario=" + nombreCuentaUsuario + ", emailUsuario=" + emailUsuario
 				+ ", contraseñaUsuario=" + contraseñaUsuario + ", telefonoUsuario=" + telefonoUsuario
 				+ ", fchAltaUsuario=" + fchAltaUsuario + ", fchBajaUsuario=" + fchBajaUsuario + ", rol=" + rol
-				+ ", cuentaConfirmada=" + cuentaConfirmada + ", listaToken=" + listaToken + "]";
+				+ ", cuentaConfirmada=" + cuentaConfirmada + ", token=" + token + ", expiracionToken=" + expiracionToken
+				+ ", usuarioComentario=" + usuarioComentario + "]";
 	}
-	
 }

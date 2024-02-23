@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import Proyecto_Final.Red_Social.Servicios.UsuarioInterfaz;
 import Proyecto_Final.Red_Social.Daos.*;
@@ -86,5 +87,22 @@ public class LoginControlador {
 	    model.addAttribute("isAdmin", usuario.getRol());
 		return "home";
 	}
+	
+	 @GetMapping("/auth/confirmacionCorreo")
+	    public String confirmarCuenta(Model model, @RequestParam("token") String token) {
+	        try {
+	            boolean confirmacionExitosa = usuarioServicio.confirmarCuenta(token);
 
+	            if (confirmacionExitosa) {
+	                model.addAttribute("cuentaVerificada", "Su dirección de correo ha sido confirmada correctamente");
+	            } else {
+	                model.addAttribute("cuentaNoVerificada", "Error al confirmar su email");
+	            }
+
+	            return "login";
+	        } catch (Exception e) {
+	            model.addAttribute("error", "Error al procesar la solicitud. Por favor, inténtelo de nuevo.");
+	            return "login";
+	        }
+	    }
 }

@@ -9,7 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,7 +27,7 @@ public class Comentarios {
 	@Column(name="fch_alta_comentario",nullable=true,updatable=false)
 	private String fch_Alta_Comentario;
 	
-	@ManyToMany(mappedBy="usuarioComentario")
+	@OneToMany(mappedBy="usuarioComentario")
 	public List<Usuario> comentarioUsuario=new ArrayList<>();
 	
 	//Constructores

@@ -8,11 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.RandomStringUtils;
 
-import Proyecto_Final.Red_Social.Daos.Token;
 import Proyecto_Final.Red_Social.Daos.Usuario;
-import Proyecto_Final.Red_Social.Dtos.TokenDTO;
 import Proyecto_Final.Red_Social.Dtos.UsuarioDTO;
-import Proyecto_Final.Red_Social.Repositorios.tokenRepositorio;
 import Proyecto_Final.Red_Social.Repositorios.usuarioRepositorio;
 import jakarta.persistence.PersistenceException;
 import jakarta.transaction.Transactional;
@@ -22,8 +19,6 @@ import jakarta.transaction.Transactional;
 public class UsuarioImplementacion implements UsuarioInterfaz {
 	@Autowired
 	private usuarioRepositorio repositorio;
-	@Autowired
-	private tokenRepositorio repositorio2;
 	@Autowired
 	private UsuarioToDaoInterfaz toDao;
 	
@@ -76,15 +71,16 @@ public class UsuarioImplementacion implements UsuarioInterfaz {
 				// Generar el token y establece la fecha de expiración
 				String token = passwordEncoder.encode(RandomStringUtils.random(30));
 				Calendar fechaExpiracion = Calendar.getInstance();
-				fechaExpiracion.add(Calendar.MINUTE, 10);
+				fechaExpiracion.add(Calendar.MINUTE, 3);
 				// Actualizar el usuario con el nuevo token y la fecha de expiración
-				Token tokenDao=new Token(token,fechaExpiracion,usuarioExistente);
+				usuarioExistente.setToken(token);
+				usuarioExistente.setExpiracionToken(fechaExpiracion);
 
 				//Actualizar el usuario en la base de datos
-				repositorio2.save(tokenDao);
+				repositorio.save(usuarioExistente);
 
 				//Enviar el correo de recuperación
-				String nombreUsuario = usuarioExistente.getNombreCuentaUsuario();
+				String nombreUsuario = usuarioExistente.getNombreCompletoUsuario();
 				emailInterfaz.enviarEmailRecuperacion(emailUsuario, nombreUsuario, token);
 				
 				return true;
@@ -102,11 +98,10 @@ public class UsuarioImplementacion implements UsuarioInterfaz {
 	}
 
 	@Override
-	public boolean modificarContraseñaConToken(TokenDTO token) {
-		Token tokenExistente = repositorio2.findByToken(token.getToken());
+	public boolean modificarContraseñaConToken(UsuarioDTO usuario) {
+		Usuario usuarioExistente = repositorio.findByToken(usuario.getToken());
 		
-		if(tokenExistente != null) {
-			Usuario usuarioExistente=tokenExistente.getUsuario();
+		if(usuarioExistente != null) {
 			String nuevaContraseña = passwordEncoder.encode(usuarioExistente.getContraseñaUsuario());
 			usuarioExistente.setContraseñaUsuario(nuevaContraseña);
 			repositorio.save(usuarioExistente);
@@ -119,10 +114,10 @@ public class UsuarioImplementacion implements UsuarioInterfaz {
 
 	@Override
 	public UsuarioDTO obtenerUsuarioPorToken(String token) {
-		Token tokenExistente = repositorio2.findByToken(token);
+		Usuario usuarioExistente = repositorio.findByToken(token);
 		
-		if(tokenExistente != null) {
-			return toDto.usuarioToDto(tokenExistente.getUsuario());
+		if(usuarioExistente != null) {
+			return toDto.usuarioToDto(usuarioExistente);
 		} else {
 			System.out.println("No existe el usuario con el token "+token);
 			return null;
@@ -192,11 +187,12 @@ public class UsuarioImplementacion implements UsuarioInterfaz {
 	@Override
 	public boolean confirmarCuenta(String token) {
 		try {
-			Token tokenExistente = repositorio2.findByToken(token);
-			Usuario usuarioExistente=tokenExistente.getUsuario();
-			if (tokenExistente != null && !usuarioExistente.isCuentaConfirmada()) {
+			Usuario usuarioExistente = repositorio.findByToken(token);
+
+			if (usuarioExistente != null && !usuarioExistente.isCuentaConfirmada()) {
 				// Entra en esta condición si el usuario existe y su cuenta no se ha confirmado
 				usuarioExistente.setCuentaConfirmada(true);
+				usuarioExistente.setToken(null);
 				repositorio.save(usuarioExistente);
 
 				return true;

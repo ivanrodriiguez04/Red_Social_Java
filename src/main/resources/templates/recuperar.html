@@ -21,7 +21,7 @@
 		<div class="text-center mt-4 name">
 			Restablecer la contraseña
 		</div>
-		<form class="p-3 mt-3" th:action="@{/auth/recuperar}" th:object="${UsuarioDTO}" method="post">
+		<form class="p-3 mt-3" th:action="@{/auth/recuperar}" th:object="${usuarioDTO}" method="post">
 			<div class="form-field d-flex align-items-center">
 				<input type="hidden" th:field="*{token}" />
 				<span class="far fa-pass"></span>

@@ -54,7 +54,7 @@ public class EmailImplementacion implements EmailInterfaz {
 
             helper.setFrom("ivanrodriiguez04@gmail.com");
             helper.setTo(emailDestino);
-            helper.setSubject("Confirmación de cuenta");
+            helper.setSubject("Confirmación de cuenta, Periodico La Revista");
 
             String urlDominio = "http://localhost:8080";
             String urlDeConfirmacion = String.format("%s/auth/confirmacionCorreo?token=%s", urlDominio, token);
@@ -64,9 +64,9 @@ public class EmailImplementacion implements EmailInterfaz {
                 + "<html lang='es'> "
                 + "<body> "
                 + "<div style='width: 600px; padding: 20px; border: 2px solid black; border-radius: 13px; background-color: #fff; font-family: Sans-serif;'>"
-                + "<h1 style='color:rgb(192, 192, 192)'>Confirmar cuenta - <b style='color:#285845; text-decoration: underline'>La Revista</b></h1>"
+                + "<h1 style='color:rgb(192, 192, 192)'>Confirmar cuenta - <b style='color:#285845; text-decoration: underline'>Red Social</b></h1>"
                 + "<p style='margin-bottom:25px'>Estimad@&nbsp;<b>%s</b>:</p> <p style='margin-bottom:25px'>"
-                + "Bienvenid@ al Periodico La Revista. Para confirmar tu cuenta, haga click en el botón:</p>"
+                + "Bienvenid@, para confirmar tu cuenta, haga click en el botón:</p>"
                 + " <a style='padding: 10px 15px; border-radius: 10px; background-color: #5993d3; color: white; text-decoration: none' href='%s' target='_blank'>Confirmar cuenta</a>"
                 + " <p style='margin-top:25px'>¡Ahora somos uno más!.</p> </div> </body> </html>",
                 nombreUsuario, urlDeConfirmacion);
